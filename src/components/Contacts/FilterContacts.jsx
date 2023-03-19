@@ -2,18 +2,18 @@
 
 import { useDispatch, useSelector } from 'react-redux';
 import { addFilter } from 'redux/filterSlice';
-import { getFilter } from 'redux/selector';
+import { selectFilter } from 'redux/selector';
 import css from './Styles.module.css'
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 
 const FilterContacts = () => {
   const dispatch = useDispatch();
 
-  const filterChange = query => {
+  const onFilterChange = query => {
     
     dispatch(addFilter(query.toLowerCase()));
   };
-  const filter = useSelector(getFilter);
+  const filter = useSelector(selectFilter);
 
   return (
     <label htmlFor="findInputId">
@@ -21,10 +21,11 @@ const FilterContacts = () => {
       <input
         className={css.input}
         type="text"
+        placeholder=""
         name="filterContact"
         value={filter}
         id="findInputId"
-        onChange={e => filterChange(e.target.value)}
+        onChange={e => onFilterChange(e.target.value)}
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
         required
       ></input>
@@ -32,9 +33,9 @@ const FilterContacts = () => {
   );
 };
 
-FilterContacts.propTypes = {
-  value: PropTypes.string.isRequired,
-  filterName: PropTypes.func.isRequired,
-};
+// FilterContacts.propTypes = {
+//   value: PropTypes.string.isRequired,
+//   filterName: PropTypes.func.isRequired,
+// };
 
 export default FilterContacts;
